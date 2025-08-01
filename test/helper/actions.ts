@@ -5,4 +5,9 @@ export class Actions extends BaseHelp {
         const element = this.findElement({ address: args.selector });
         await element.click();
     }
+
+    async getElementTextContent(args: { selector: string }): Promise<string> {
+        const element = this.findElement({ address: args.selector });
+        return await element.getText();
+    }
 }

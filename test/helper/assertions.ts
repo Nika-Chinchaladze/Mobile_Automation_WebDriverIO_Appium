@@ -6,4 +6,9 @@ export class Assertions extends BaseHelp {
         const element = this.findElement({ address: args.selector });
         await expect(element).toBeExisting();
     }
+
+    async verifyElementHaveText(args: { selector: string, text: string }): Promise<void> {
+        const element = this.findElement({ address: args.selector });
+        await expect(element).toHaveText(args.text);
+    }
 }

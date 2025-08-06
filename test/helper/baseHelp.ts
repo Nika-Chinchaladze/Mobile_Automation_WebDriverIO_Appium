@@ -1,7 +1,11 @@
-import type { ChainablePromiseElement } from 'webdriverio';
+import type { ChainablePromiseElement, ChainablePromiseArray } from 'webdriverio';
 
 export class BaseHelp {
-    protected findElement(args: { address: string }): ChainablePromiseElement {
+    protected async findElement(args: { address: string }): Promise<ChainablePromiseElement> {
         return $(args.address);
+    }
+
+    protected async findMultipleElements(args: { address: string }): Promise<ChainablePromiseArray> {
+        return $$(args.address);
     }
 }

@@ -1,58 +1,54 @@
 import { MainPage } from "../pages/mainPage";
+import { AppPage } from "../pages/appPage";
+import { AlertDialogPage } from "../pages/alertDialogPage";
+import { ViewsPage } from "../pages/viewsPage";
+import { ListDialogWindow } from "../pages/listDialogWindow";
 
 describe('Android Elements Tests', () => {
     const mainPage: MainPage = new MainPage();
+    const appPage: AppPage = new AppPage();
+    const alertDialogPage: AlertDialogPage = new AlertDialogPage();
+    const listDialogWindow: ListDialogWindow = new ListDialogWindow();
+    const viewsPage: ViewsPage = new ViewsPage();
 
     it('Find element by accessibility id', async () => {
         await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.actionBar });
+        await appPage.assertions.verifyElementIsExisting({ selector: appPage.actionBar });
     });
 
     it('Find Element By Class Name', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.accessibility });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.accessibility, text: 'API Demos' });
+        await mainPage.actions.clickOnElement({ selector: mainPage.apiDemos });
+        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.apiDemos, text: 'API Demos' });
     });
 
     it('Find Element By XPath', async () => {
         await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.alertDialog });
-        await mainPage.actions.clickOnElement({ selector: mainPage.alertDialog });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.listDialog });
-        await mainPage.actions.clickOnElement({ selector: mainPage.listDialog });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.commandTwo });
-        await mainPage.actions.clickOnElement({ selector: mainPage.commandTwo });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.selectedCommandTwo });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.selectedCommandTwo, text: 'You selected: 1 , Command two' });
+        await appPage.assertions.verifyElementIsExisting({ selector: appPage.alertDialog });
+        await appPage.actions.clickOnElement({ selector: appPage.alertDialog });
+        await alertDialogPage.assertions.verifyElementIsExisting({ selector: alertDialogPage.listDialog });
+        await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.listDialog });
+        await listDialogWindow.assertions.verifyElementIsExisting({ selector: listDialogWindow.commandTwo });
+        await listDialogWindow.actions.clickOnElement({ selector: listDialogWindow.commandTwo });
+        await listDialogWindow.assertions.verifyElementIsExisting({ selector: listDialogWindow.selectedCommandTwo });
+        await listDialogWindow.assertions.verifyElementHaveText({ selector: listDialogWindow.selectedCommandTwo, text: 'You selected: 1 , Command two' });
     });
 
     it('Find Element By UIAutomator', async () => {
         await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.alertDialogUiSelector });
-        await mainPage.actions.clickOnElement({ selector: mainPage.alertDialogUiSelector });
+        await appPage.assertions.verifyElementIsExisting({ selector: appPage.alertDialogUiSelector });
+        await appPage.actions.clickOnElement({ selector: appPage.alertDialogUiSelector });
     })
 
-    it.skip('E2E Flow', async () => {
-        // First Flow
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.animationSelector });
-        await mainPage.actions.clickOnElement({ selector: mainPage.animationSelector });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.cloningSelector });
-        await mainPage.actions.clickOnElement({ selector: mainPage.cloningSelector });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.runSelector });
-        await mainPage.actions.clickOnElement({ selector: mainPage.runSelector });
-        // Back To Start Stage
-        await browser.pause(3000);
-        await driver.back();
-        await driver.back();
-        await browser.pause(1000);
-        // Second Flow
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.graphicSelector });
-        await mainPage.actions.clickOnElement({ selector: mainPage.graphicSelector });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.arcSelector });
-        await mainPage.actions.clickOnElement({ selector: mainPage.arcSelector });
-        // Back To Start Stage
-        await browser.pause(3000);
-        await driver.back();
-        await driver.back();
-        await browser.pause(1000);
+    it('Find Multiple elements', async () => {
+        const textContents = await mainPage.actions.getMultipleElementsTextContent({ selector: mainPage.elementList });
+        mainPage.assertions.verifyArrayContainsMultipleValue(textContents, 'Accessibility', 'Animation', 'Preference');
+    });
+
+    it.only('Set Value Into Country Input Field', async () => {
+        await mainPage.actions.clickOnElement({ selector: mainPage.views });
+        await viewsPage.actions.clickOnElement({ selector: viewsPage.autoComplete });
+        await viewsPage.actions.clickOnElement({ selector: viewsPage.screenTop });
+        await viewsPage.actions.setValueIntoField({ selector: viewsPage.countryInput, value: 'Canada' });
+        await viewsPage.assertions.verifyElementHaveText({ selector: viewsPage.countryInput, text: 'Canada' });
     });
 })

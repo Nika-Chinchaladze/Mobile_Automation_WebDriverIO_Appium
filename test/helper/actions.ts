@@ -1,6 +1,22 @@
 import { BaseHelp } from "./baseHelp";
 
 export class Actions extends BaseHelp {
+    async navigateToSpecificPageDirectly(args: { packageName: string, appActivity: string }): Promise<void> {
+        await driver.startActivity(args.packageName, `${args.packageName}${args.appActivity}`);
+    }
+
+    async acceptAlert(): Promise<void> {
+        await driver.acceptAlert();
+    }
+
+    async dismissAlert(): Promise<void> {
+        await driver.dismissAlert();
+    }
+
+    async getAlertText(): Promise<string> {
+        return await driver.getAlertText();
+    }
+
     async clickOnElement(args: { selector: string }): Promise<void> {
         const element = await this.findElement({ address: args.selector });
         await element.click();

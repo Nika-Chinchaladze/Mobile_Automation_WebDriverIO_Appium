@@ -21,11 +21,15 @@ export class SelectorFactory extends BaseHelp {
         return `//${args.tagName}[@text="${args.text}"]`;
     }
 
+    getByUiAutomatorText(text: string): string {
+        return `android=new UiSelector().text("${text}")`;
+    }
+
     getByUiAutomatorTextContains(text: string): string {
         return `android=new UiSelector().textContains("${text}")`;
     }
 
-    getScrollableElement(): string {
-        return `android=new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(1,5)`;
+    getScrollable(): string {
+        return 'android=new UiScrollable(new UiSelector().scrollable(true))';
     }
 }

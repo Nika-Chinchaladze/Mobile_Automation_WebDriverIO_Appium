@@ -2,8 +2,10 @@ import { MainPage } from "../pages/mainPage";
 import { AppPage } from "../pages/appPage";
 import { AlertDialogPage } from "../pages/alertDialogPage";
 import { ViewsPage } from "../pages/viewsPage";
+import { SecureDialogPage } from "../pages/secureDialogPage";
 import { ListDialogWindow } from "../pages/listDialogWindow";
 import { AlertDialogWindow } from "../pages/alertDialogWindow";
+import { CalendarWindow } from "../pages/calendarWindow";
 
 describe('Android Elements Tests', () => {
     const mainPage: MainPage = new MainPage();
@@ -12,6 +14,8 @@ describe('Android Elements Tests', () => {
     const viewsPage: ViewsPage = new ViewsPage();
     const listDialogWindow: ListDialogWindow = new ListDialogWindow();
     const alertDialogWindow: AlertDialogWindow = new AlertDialogWindow();
+    const secureDialogPage: SecureDialogPage = new SecureDialogPage();
+    const calendarWindow: CalendarWindow = new CalendarWindow();
 
     it('Find element by accessibility id', async () => {
         await mainPage.actions.clickOnElement({ selector: mainPage.app });
@@ -93,10 +97,44 @@ describe('Android Elements Tests', () => {
         await alertDialogWindow.assertions.verifyAlertText({ alertText: titleText });
     });
 
-    it.only('Test Verical Scrolling', async () => {
+    it('Test Verical Scrolling - ScrollToEnd', async () => {
         await mainPage.actions.clickOnElement({ selector: mainPage.app });
         await mainPage.actions.clickOnElement({ selector: mainPage.activity });
-        await mainPage.actions.scrollToScrollable(mainPage.selectorFactory.getScrollableElement());
-        await mainPage.actions.clickOnElement({ selector: mainPage.secureSurfaces });
+        await mainPage.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'vertical' });
+        await secureDialogPage.actions.clickOnElement({ selector: secureDialogPage.secureSurfaces });
+        await secureDialogPage.assertions.verifyElementIsExisting({ selector: secureDialogPage.secureDialog });
+    });
+
+    it('Test Verical Scrolling - ScrollTextIntoView', async () => {
+        await mainPage.actions.clickOnElement({ selector: mainPage.app });
+        await mainPage.actions.clickOnElement({ selector: mainPage.activity });
+        await mainPage.actions.scrollTextIntoView({ scrollable: mainPage.selectorFactory.getScrollable(), text: 'Secure Surfaces' });
+        await secureDialogPage.actions.clickOnElement({ selector: secureDialogPage.secureSurfaces });
+        await secureDialogPage.assertions.verifyElementIsExisting({ selector: secureDialogPage.secureDialog });
+    });
+
+    it('Test Horizontal Scrolling - ScrollToEnd', async () => {
+        await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.view.Gallery1' });
+        await mainPage.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'front' });
+        await mainPage.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'back' });
+    });
+
+    it.only('Test Picking Date from calendar modal window', async () => {
+        // Navigate and verify page
+        await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.view.DateWidgets1' });
+        await calendarWindow.assertions.verifyElementIsExisting({ selector: calendarWindow.currentDate });
+        const currentDateContent: string = await calendarWindow.actions.getElementTextContent({ selector: calendarWindow.currentDate });
+        const today = new Date();
+        await calendarWindow.assertions.verifyElementContainsText({ selector: calendarWindow.currentDate, text: `${today.getDay()}` });
+        // Click and verify calendar window
+        await calendarWindow.actions.clickOnElement({ selector: calendarWindow.changeDateBtn });
+        await calendarWindow.assertions.verifyElementIsExisting({ selector: calendarWindow.window });
+        await calendarWindow.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'front' });
+        // Choose 10 day and Verify
+        await calendarWindow.actions.clickOnElement({ selector: calendarWindow.tenthDay });
+        await calendarWindow.actions.clickOnElement({ selector: calendarWindow.okBtn });
+        await calendarWindow.assertions.verifyElementContainsText({ selector: calendarWindow.currentDate, text: '10' });
+        const chosenDateContent: string = await calendarWindow.actions.getElementTextContent({ selector: calendarWindow.currentDate });
+        calendarWindow.assertions.verifyNotEqual({ value1: currentDateContent, value2: chosenDateContent });
     });
 })

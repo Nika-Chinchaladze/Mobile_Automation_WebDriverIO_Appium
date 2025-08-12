@@ -24,7 +24,13 @@ export class Assertions extends BaseHelp {
 
     async verifyElementContainsText(args: { selector: string, text: string }): Promise<void> {
         const element = await this.findElement({ address: args.selector });
-        await expect(element).toContain(args.text);
+        const textContent = await element.getText();
+        expect(textContent).toContain(args.text);
+    }
+
+    verifyNotEqual(args: {value1: string | number, value2: string | number}): void {
+        const { value1, value2 } = args;
+        expect(value1).not.toEqual(value2);
     }
 
     verifyArrayContainsValue(args: { textArray: string[], value: string }): void {

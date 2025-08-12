@@ -5,8 +5,26 @@ export class Actions extends BaseHelp {
         await driver.startActivity(args.packageName, `${args.packageName}${args.appActivity}`);
     }
 
-    async scrollToScrollable(selector: string): Promise<void> {
-        await this.findElement({ address: selector });
+    async scrollToEnd( args: { scrollable: string, direction: 'vertical' | 'horizontal', aim?: 'front' | 'back' }): Promise<void> {
+        const { scrollable, direction, aim } = args;
+        switch (direction) {
+            case 'vertical':
+                await this.findElement({ address: `${scrollable}.scrollToEnd(1,5)` });
+                break;
+            
+            case 'horizontal':
+                if (aim === 'front') {
+                    await this.findElement({ address: `${scrollable}.setAsHorizontalList().scrollForward()` });
+                } else {
+                    await this.findElement({ address: `${scrollable}.setAsHorizontalList().scrollBackward()` });
+                }
+                break;
+        }
+    }
+
+    async scrollTextIntoView(args: {scrollable: string, text: string}): Promise<void> {
+        const { scrollable, text } = args;
+        await this.findElement({ address: `${scrollable}.scrollTextIntoView("${text}")` });
     }
 
     async acceptAlert(): Promise<void> {

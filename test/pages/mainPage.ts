@@ -6,5 +6,4 @@ export class MainPage extends BasePage {
     public apiDemos: string = this.selectorFactory.getByResourceId({ tagName: 'android.view.ViewGroup', idValue: 'android:id/action_bar' });
     public views: string = this.selectorFactory.getByAccessibilityId('Views');
     public activity: string = this.selectorFactory.getByAccessibilityId('Activity');
-    public secureSurfaces: string = this.selectorFactory.getByAccessibilityId('Secure Surfaces');
 }

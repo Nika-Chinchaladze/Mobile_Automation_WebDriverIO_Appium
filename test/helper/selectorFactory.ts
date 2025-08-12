@@ -24,4 +24,8 @@ export class SelectorFactory extends BaseHelp {
     getByUiAutomatorTextContains(text: string): string {
         return `android=new UiSelector().textContains("${text}")`;
     }
+
+    getScrollableElement(): string {
+        return `android=new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(1,5)`;
+    }
 }

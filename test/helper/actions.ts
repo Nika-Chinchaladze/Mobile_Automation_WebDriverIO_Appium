@@ -5,6 +5,10 @@ export class Actions extends BaseHelp {
         await driver.startActivity(args.packageName, `${args.packageName}${args.appActivity}`);
     }
 
+    async scrollToScrollable(selector: string): Promise<void> {
+        await this.findElement({ address: selector });
+    }
+
     async acceptAlert(): Promise<void> {
         await driver.acceptAlert();
     }

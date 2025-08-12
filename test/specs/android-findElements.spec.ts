@@ -74,7 +74,7 @@ describe('Android Elements Tests', () => {
         await alertDialogWindow.assertions.verifyElementIsNotExisting({ selector: alertDialogWindow.alertDialogWindow });
     });
 
-    it.only('Test Ok & Cancel Dialog window with - Clicking + Title Content', async () => {
+    it('Test Ok & Cancel Dialog window with - Clicking + Title Content', async () => {
         await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.app.AlertDialogSamples' });
         await alertDialogPage.assertions.verifyElementIsExisting({ selector: alertDialogPage.okCancelDialog });
         // Accept Flow
@@ -91,5 +91,12 @@ describe('Android Elements Tests', () => {
         await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.okCancelDialog });
         const titleText: string = await alertDialogWindow.actions.getAlertText();
         await alertDialogWindow.assertions.verifyAlertText({ alertText: titleText });
+    });
+
+    it.only('Test Verical Scrolling', async () => {
+        await mainPage.actions.clickOnElement({ selector: mainPage.app });
+        await mainPage.actions.clickOnElement({ selector: mainPage.activity });
+        await mainPage.actions.scrollToScrollable(mainPage.selectorFactory.getScrollableElement());
+        await mainPage.actions.clickOnElement({ selector: mainPage.secureSurfaces });
     });
 })

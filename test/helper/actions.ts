@@ -39,6 +39,12 @@ export class Actions extends BaseHelp {
         return await driver.getAlertText();
     }
 
+    async goBack(args: {times: number}): Promise<void> {
+        for (let i = 0; i < args.times; i++) {
+            await driver.back();
+        }
+    }
+
     async clickOnElement(args: { selector: string }): Promise<void> {
         const element = await this.findElement({ address: args.selector });
         await element.click();
@@ -47,6 +53,11 @@ export class Actions extends BaseHelp {
     async setValueIntoField(args: { selector: string, value: string }): Promise<void> {
         const element = await this.findElement({ address: args.selector });
         await element.setValue(args.value);
+    }
+
+    async addValueIntoField(args: { selector: string, value: string }): Promise<void> {
+        const element = await this.findElement({ address: args.selector });
+        await element.addValue(args.value);
     }
 
     async getElementTextContent(args: { selector: string }): Promise<string> {

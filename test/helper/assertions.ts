@@ -17,6 +17,11 @@ export class Assertions extends BaseHelp {
         await expect(element).not.toBeExisting();
     }
 
+    async verifyElementIsDisplayed(args: { selector: string }): Promise<void> {
+        const element = await this.findElement({ address: args.selector });
+        await expect(element).toBeDisplayed();
+    }
+
     async verifyElementHaveText(args: { selector: string, text: string }): Promise<void> {
         const element = await this.findElement({ address: args.selector });
         await expect(element).toHaveText(args.text);

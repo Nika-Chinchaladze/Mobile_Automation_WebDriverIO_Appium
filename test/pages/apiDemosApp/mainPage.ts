@@ -1,4 +1,4 @@
-import { BasePage } from "./basePage";
+import { BasePage } from "../basePage";
 
 export class MainPage extends BasePage {
     public elementList: string = this.selectorFactory.getByClass('android.widget.TextView');

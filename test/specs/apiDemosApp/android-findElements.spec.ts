@@ -1,11 +1,11 @@
-import { MainPage } from "../pages/mainPage";
-import { AppPage } from "../pages/appPage";
-import { AlertDialogPage } from "../pages/alertDialogPage";
-import { ViewsPage } from "../pages/viewsPage";
-import { SecureDialogPage } from "../pages/secureDialogPage";
-import { ListDialogWindow } from "../pages/listDialogWindow";
-import { AlertDialogWindow } from "../pages/alertDialogWindow";
-import { CalendarWindow } from "../pages/calendarWindow";
+import { MainPage } from "../../pages/apiDemosApp/mainPage";
+import { AppPage } from "../../pages/apiDemosApp/appPage";
+import { AlertDialogPage } from "../../pages/apiDemosApp/alertDialogPage";
+import { ViewsPage } from "../../pages/apiDemosApp/viewsPage";
+import { SecureDialogPage } from "../../pages/apiDemosApp/secureDialogPage";
+import { ListDialogWindow } from "../../pages/apiDemosApp/listDialogWindow";
+import { AlertDialogWindow } from "../../pages/apiDemosApp/alertDialogWindow";
+import { CalendarWindow } from "../../pages/apiDemosApp/calendarWindow";
 
 describe('Android Elements Tests', () => {
     const mainPage: MainPage = new MainPage();

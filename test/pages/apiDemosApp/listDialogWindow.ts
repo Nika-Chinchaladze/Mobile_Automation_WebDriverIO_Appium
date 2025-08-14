@@ -1,4 +1,4 @@
-import { BasePage } from "./basePage";
+import { BasePage } from "../basePage";
 
 export class ListDialogWindow extends BasePage {
     public commandTwo: string = this.selectorFactory.getByText({ tagName: 'android.widget.TextView', text: 'Command two' });

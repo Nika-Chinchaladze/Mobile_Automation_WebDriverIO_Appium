@@ -1,4 +1,4 @@
-import { BasePage } from "./basePage";
+import { BasePage } from "../basePage";
 
 export class CalendarWindow extends BasePage {
     public currentDate: string = this.selectorFactory.getByResourceId({ tagName: 'android.widget.TextView', idValue: 'io.appium.android.apis:id/dateDisplay' });

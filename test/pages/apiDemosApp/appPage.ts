@@ -1,4 +1,4 @@
-import { BasePage } from "./basePage";
+import { BasePage } from "../basePage";
 
 export class AppPage extends BasePage {
     public actionBar: string = this.selectorFactory.getByAccessibilityId('Action Bar');

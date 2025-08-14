@@ -1,4 +1,4 @@
-import { BasePage } from "./basePage";
+import { BasePage } from "../basePage";
 
 export class ViewsPage extends BasePage {
     public autoComplete: string = this.selectorFactory.getByXPath({ tagName: 'android.widget.TextView', attr: 'content-desc', value: 'Auto Complete' });

@@ -1,4 +1,4 @@
-import { BasePage } from "./basePage";
+import { BasePage } from "../basePage";
 
 export class SecureDialogPage extends BasePage {
     public secureSurfaces: string = this.selectorFactory.getByAccessibilityId('Secure Surfaces');

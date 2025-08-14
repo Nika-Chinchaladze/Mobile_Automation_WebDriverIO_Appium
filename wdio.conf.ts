@@ -5,7 +5,7 @@ export const config: WebdriverIO.Config = {
     tsConfigPath: './tsconfig.json',
     port: 4723,
     specs: [
-        './test/specs/**/*.ts'
+        './test/specs/colorNotepadApp/*.ts'
     ],
     exclude: [],
     maxInstances: 10,
@@ -14,7 +14,8 @@ export const config: WebdriverIO.Config = {
         'appium:platformVersion': '11.0',
         'appium:deviceName': 'Pixel 3',
         'appium:automationName': 'UiAutomator2',
-        'appium:app': path.join(process.cwd(), './app/android/ApiDemos-debug.apk'),
+        'appium:app': path.join(process.cwd(), './app/android/ColorNotepad.apk'),
+        "appium:autoGrantPermissions": true,
     }],
     logLevel: 'error',
     bail: 0,

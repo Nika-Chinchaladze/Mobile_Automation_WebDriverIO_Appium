@@ -1,4 +1,4 @@
-import { BasePage } from "./basePage";
+import { BasePage } from "../basePage";
 
 export class AlertDialogWindow extends BasePage {
     public alertDialogWindow: string = this.selectorFactory.getByResourceId({ tagName: 'android.widget.LinearLayout', idValue: 'android:id/title_template' });

@@ -19,11 +19,11 @@ describe('ColorNotepad android application', () => {
         await MainPage.assertions.verifyElementHaveText({ selector: MainPage.savedTextArea, text: validText });
     };
 
-    it.only('Add, Save & Verify Note', async () => {
+    it('Add, Save & Verify Note', async () => {
         await addSaveVerifyStep();
     });
 
-    it('Add, Save, Delete & Verify Note', async () => {
+    it.only('Add, Save, Delete & Verify Note', async () => {
         await addSaveVerifyStep();
         // Delete Note
         const validText: string = 'Fav Anime List';

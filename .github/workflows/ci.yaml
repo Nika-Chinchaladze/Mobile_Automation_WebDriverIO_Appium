@@ -20,7 +20,7 @@ jobs:
           env:
             BS_USER: ${{ secrets.BS_USER }}
             BS_KEY: ${{ secrets.BS_KEY }}
-          run: npm run wdio
+          run: npm run wdio:browserstack
 
         - name: 📦 Upload Logs
           uses: actions/upload-artifact@v4

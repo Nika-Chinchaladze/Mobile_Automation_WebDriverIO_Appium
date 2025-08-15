@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "wdio": "wdio run wdio.conf.ts"
+    "wdio:local": "wdio run config/wdio.local.conf.ts",
+    "wdio:browserstack": "wdio run config/wdio.browserstack.conf.ts"
   },
   "keywords": [],
   "author": "",

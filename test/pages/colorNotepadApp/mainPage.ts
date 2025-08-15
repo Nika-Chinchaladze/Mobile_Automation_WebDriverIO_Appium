@@ -1,6 +1,6 @@
 import { BasePage } from "../basePage";
 
-export class MainPage extends BasePage {
+class MainPage extends BasePage {
     public skipBtn: string = this.selectorFactory.getByResourceId({ tagName: 'android.widget.Button', idValue: 'com.socialnmobile.dictapps.notepad.color.note:id/btn_start_skip' });
     public addNoteText: string = this.selectorFactory.getByText({ tagName: 'android.widget.TextView', text: 'Add note' });
     public addWindowTitle: string = this.selectorFactory.getByResourceId({ tagName: 'android.widget.TextView', idValue: 'com.socialnmobile.dictapps.notepad.color.note:id/alertTitle' });
@@ -16,3 +16,5 @@ export class MainPage extends BasePage {
     public menuBtn: string = this.selectorFactory.getByResourceId({ tagName: 'android.widget.ImageButton', idValue: 'com.socialnmobile.dictapps.notepad.color.note:id/icon_nav' });
     public trashCanOptionBtn: string = this.selectorFactory.getByText({ tagName: 'android.widget.TextView', text: 'Trash Can' });
 }
+
+export default new MainPage();

@@ -1,7 +1,7 @@
 import { expect } from '@wdio/globals';
 import { BaseHelp } from "./baseHelp";
 
-export class Assertions extends BaseHelp {
+class Assertions extends BaseHelp {
     async verifyAlertText(args: { alertText: string }): Promise<void> {
         const alertActualText: string = await driver.getAlertText();
         expect(alertActualText).toEqual(args.alertText);
@@ -48,3 +48,5 @@ export class Assertions extends BaseHelp {
         });
     }
 }
+
+export default new Assertions();

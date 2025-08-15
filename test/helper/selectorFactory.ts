@@ -1,6 +1,4 @@
-import { BaseHelp } from "./baseHelp";
-
-export class SelectorFactory extends BaseHelp {
+class SelectorFactory {
     getByAccessibilityId(id: string): string {
         return `~${id}`;
     }
@@ -33,3 +31,5 @@ export class SelectorFactory extends BaseHelp {
         return 'android=new UiScrollable(new UiSelector().scrollable(true))';
     }
 }
+
+export default new SelectorFactory();

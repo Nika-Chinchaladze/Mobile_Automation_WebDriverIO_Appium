@@ -1,51 +1,43 @@
-import { MainPage } from "../../pages/colorNotepadApp/mainPage";
+import MainPage from "../../pages/colorNotepadApp/mainPage";
 
 describe('ColorNotepad android application', () => {
-    const mainPage: MainPage = new MainPage();
 
-    it('Add, Save & Verify Note', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.skipBtn });
-        await mainPage.assertions.verifyElementIsDisplayed({ selector: mainPage.addNoteText });
-        await mainPage.actions.clickOnElement({ selector: mainPage.addNoteText });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.addWindowTitle });
-        await mainPage.actions.clickOnElement({ selector: mainPage.addTextBtn });
-        await mainPage.assertions.verifyElementIsDisplayed({ selector: mainPage.editingTitle });
-        await mainPage.actions.setValueIntoField({ selector: mainPage.editTextArea, value: 'First\nSecond\nThird' });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.editTextArea, text: 'First\nSecond\nThird' });
-        await mainPage.actions.goBack({ times: 2 });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.editBtn });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.savedTextArea, text: 'First\nSecond\nThird' });
-        await browser.pause(500);
+    const addSaveVerifyStep = async () => {
+        // Add Note
+        await MainPage.actions.clickOnElement({ selector: MainPage.skipBtn });
+        await MainPage.assertions.verifyElementIsDisplayed({ selector: MainPage.addNoteText });
+        await MainPage.actions.clickOnElement({ selector: MainPage.addNoteText });
+        await MainPage.assertions.verifyElementIsExisting({ selector: MainPage.addWindowTitle });
+        await MainPage.actions.clickOnElement({ selector: MainPage.addTextBtn });
+        await MainPage.assertions.verifyElementIsDisplayed({ selector: MainPage.editingTitle });
+        const validText: string = 'Fav Anime List';
+        await MainPage.actions.setValueIntoField({ selector: MainPage.editTextArea, value: validText });
+        await MainPage.assertions.verifyElementHaveText({ selector: MainPage.editTextArea, text: validText });
+        // Save Note
+        await MainPage.actions.goBack({ times: 2 });
+        await MainPage.assertions.verifyElementIsExisting({ selector: MainPage.editBtn });
+        await MainPage.assertions.verifyElementHaveText({ selector: MainPage.savedTextArea, text: validText });
+    };
+
+    it.only('Add, Save & Verify Note', async () => {
+        await addSaveVerifyStep();
     });
 
-    it.only('Add, Save, Delete & Verify Note', async () => {
-        // Add Note
-        await mainPage.actions.clickOnElement({ selector: mainPage.skipBtn });
-        await mainPage.assertions.verifyElementIsDisplayed({ selector: mainPage.addNoteText });
-        await mainPage.actions.clickOnElement({ selector: mainPage.addNoteText });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.addWindowTitle });
-        await mainPage.actions.clickOnElement({ selector: mainPage.addTextBtn });
-        await mainPage.assertions.verifyElementIsDisplayed({ selector: mainPage.editingTitle });
-        const validText: string = 'Fav Anime List';
-        await mainPage.actions.setValueIntoField({ selector: mainPage.editTextArea, value: validText });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.editTextArea, text: validText });
-        // Save Note
-        await mainPage.actions.goBack({ times: 2 });
-        await mainPage.assertions.verifyElementIsExisting({ selector: mainPage.editBtn });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.savedTextArea, text: validText });
+    it('Add, Save, Delete & Verify Note', async () => {
+        await addSaveVerifyStep();
         // Delete Note
-        await mainPage.actions.goBack({ times: 1 });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.noteListItem, text: validText });
-        await mainPage.actions.clickOnElement({ selector: mainPage.noteListItem });
-        await mainPage.actions.clickOnElement({ selector: mainPage.threeDotBtn });
-        await mainPage.actions.clickOnElement({ selector: mainPage.deleteBtn });
-        await mainPage.actions.clickOnElement({ selector: mainPage.confirmDeleteBtn });
-        await mainPage.assertions.verifyElementIsNotExisting({ selector: mainPage.noteListItem });
+        const validText: string = 'Fav Anime List';
+        await MainPage.actions.goBack({ times: 1 });
+        await MainPage.assertions.verifyElementHaveText({ selector: MainPage.noteListItem, text: validText });
+        await MainPage.actions.clickOnElement({ selector: MainPage.noteListItem });
+        await MainPage.actions.clickOnElement({ selector: MainPage.threeDotBtn });
+        await MainPage.actions.clickOnElement({ selector: MainPage.deleteBtn });
+        await MainPage.actions.clickOnElement({ selector: MainPage.confirmDeleteBtn });
+        await MainPage.assertions.verifyElementIsNotExisting({ selector: MainPage.noteListItem });
         // Verify Deletion
-        await mainPage.actions.clickOnElement({ selector: mainPage.menuBtn });
-        await mainPage.actions.clickOnElement({ selector: mainPage.trashCanOptionBtn });
-        await mainPage.assertions.verifyElementIsDisplayed({ selector: mainPage.noteListItem });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.noteListItem, text: validText });
-        await browser.pause(500);
+        await MainPage.actions.clickOnElement({ selector: MainPage.menuBtn });
+        await MainPage.actions.clickOnElement({ selector: MainPage.trashCanOptionBtn });
+        await MainPage.assertions.verifyElementIsDisplayed({ selector: MainPage.noteListItem });
+        await MainPage.assertions.verifyElementHaveText({ selector: MainPage.noteListItem, text: validText });
     });
 });

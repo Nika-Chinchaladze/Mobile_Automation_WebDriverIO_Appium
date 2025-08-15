@@ -1,6 +1,6 @@
 import type { ChainablePromiseElement, ChainablePromiseArray } from 'webdriverio';
 
-export class BaseHelp {
+export abstract class BaseHelp {
     protected async findElement(args: { address: string }): Promise<ChainablePromiseElement> {
         return $(args.address);
     }

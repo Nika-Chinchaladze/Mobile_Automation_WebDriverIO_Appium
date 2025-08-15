@@ -8,7 +8,7 @@ export const config: WebdriverIO.Config = {
         './test/specs/colorNotepadApp/*.ts'
     ],
     exclude: [],
-    maxInstances: 10,
+    maxInstances: 1,
     capabilities: [{
         platformName: 'Android',
         'appium:platformVersion': '11.0',

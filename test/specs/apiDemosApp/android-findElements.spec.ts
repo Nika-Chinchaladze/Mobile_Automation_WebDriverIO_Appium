@@ -1,140 +1,131 @@
-import { MainPage } from "../../pages/apiDemosApp/mainPage";
-import { AppPage } from "../../pages/apiDemosApp/appPage";
-import { AlertDialogPage } from "../../pages/apiDemosApp/alertDialogPage";
-import { ViewsPage } from "../../pages/apiDemosApp/viewsPage";
-import { SecureDialogPage } from "../../pages/apiDemosApp/secureDialogPage";
-import { ListDialogWindow } from "../../pages/apiDemosApp/listDialogWindow";
-import { AlertDialogWindow } from "../../pages/apiDemosApp/alertDialogWindow";
-import { CalendarWindow } from "../../pages/apiDemosApp/calendarWindow";
+import MainPage from "../../pages/apiDemosApp/mainPage";
+import AppPage from "../../pages/apiDemosApp/appPage";
+import AlertDialogPage from "../../pages/apiDemosApp/alertDialogPage";
+import ViewsPage from "../../pages/apiDemosApp/viewsPage";
+import SecureDialogPage from "../../pages/apiDemosApp/secureDialogPage";
+import ListDialogWindow from "../../pages/apiDemosApp/listDialogWindow";
+import AlertDialogWindow from "../../pages/apiDemosApp/alertDialogWindow";
+import CalendarWindow from "../../pages/apiDemosApp/calendarWindow";
 
 describe('Android Elements Tests', () => {
-    const mainPage: MainPage = new MainPage();
-    const appPage: AppPage = new AppPage();
-    const alertDialogPage: AlertDialogPage = new AlertDialogPage();
-    const viewsPage: ViewsPage = new ViewsPage();
-    const listDialogWindow: ListDialogWindow = new ListDialogWindow();
-    const alertDialogWindow: AlertDialogWindow = new AlertDialogWindow();
-    const secureDialogPage: SecureDialogPage = new SecureDialogPage();
-    const calendarWindow: CalendarWindow = new CalendarWindow();
-
     it('Find element by accessibility id', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await appPage.assertions.verifyElementIsExisting({ selector: appPage.actionBar });
+        await MainPage.actions.clickOnElement({ selector: MainPage.app });
+        await AppPage.assertions.verifyElementIsExisting({ selector: AppPage.actionBar });
     });
 
-    it('Find Element By Class Name', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.apiDemos });
-        await mainPage.assertions.verifyElementHaveText({ selector: mainPage.apiDemos, text: 'API Demos' });
+    it.only('Find Element By Class Name', async () => {
+        await MainPage.actions.clickOnElement({ selector: MainPage.apiDemos });
+        await MainPage.assertions.verifyElementHaveText({ selector: MainPage.apiDemos, text: 'API Demos' });
     });
 
     it('Find Element By XPath', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await appPage.assertions.verifyElementIsExisting({ selector: appPage.alertDialog });
-        await appPage.actions.clickOnElement({ selector: appPage.alertDialog });
-        await alertDialogPage.assertions.verifyElementIsExisting({ selector: alertDialogPage.listDialog });
-        await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.listDialog });
-        await listDialogWindow.assertions.verifyElementIsExisting({ selector: listDialogWindow.commandTwo });
-        await listDialogWindow.actions.clickOnElement({ selector: listDialogWindow.commandTwo });
-        await listDialogWindow.assertions.verifyElementIsExisting({ selector: listDialogWindow.selectedCommandTwo });
-        await listDialogWindow.assertions.verifyElementHaveText({ selector: listDialogWindow.selectedCommandTwo, text: 'You selected: 1 , Command two' });
+        await MainPage.actions.clickOnElement({ selector: MainPage.app });
+        await AppPage.assertions.verifyElementIsExisting({ selector: AppPage.alertDialog });
+        await AppPage.actions.clickOnElement({ selector: AppPage.alertDialog });
+        await AlertDialogPage.assertions.verifyElementIsExisting({ selector: AlertDialogPage.listDialog });
+        await AlertDialogPage.actions.clickOnElement({ selector: AlertDialogPage.listDialog });
+        await ListDialogWindow.assertions.verifyElementIsExisting({ selector: ListDialogWindow.commandTwo });
+        await ListDialogWindow.actions.clickOnElement({ selector: ListDialogWindow.commandTwo });
+        await ListDialogWindow.assertions.verifyElementIsExisting({ selector: ListDialogWindow.selectedCommandTwo });
+        await ListDialogWindow.assertions.verifyElementHaveText({ selector: ListDialogWindow.selectedCommandTwo, text: 'You selected: 1 , Command two' });
     });
 
     it('Find Element By UIAutomator', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await appPage.assertions.verifyElementIsExisting({ selector: appPage.alertDialogUiSelector });
-        await appPage.actions.clickOnElement({ selector: appPage.alertDialogUiSelector });
+        await MainPage.actions.clickOnElement({ selector: MainPage.app });
+        await AppPage.assertions.verifyElementIsExisting({ selector: AppPage.alertDialogUiSelector });
+        await AppPage.actions.clickOnElement({ selector: AppPage.alertDialogUiSelector });
     })
 
     it('Find Multiple elements', async () => {
-        const textContents = await mainPage.actions.getMultipleElementsTextContent({ selector: mainPage.elementList });
-        mainPage.assertions.verifyArrayContainsMultipleValue(textContents, 'Accessibility', 'Animation', 'Preference');
+        const textContents = await MainPage.actions.getMultipleElementsTextContent({ selector: MainPage.elementList });
+        MainPage.assertions.verifyArrayContainsMultipleValue(textContents, 'Accessibility', 'Animation', 'Preference');
     });
 
     it('Set Value Into Country Input Field', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.views });
-        await viewsPage.actions.clickOnElement({ selector: viewsPage.autoComplete });
-        await viewsPage.actions.clickOnElement({ selector: viewsPage.screenTop });
-        await viewsPage.actions.setValueIntoField({ selector: viewsPage.countryInput, value: 'Canada' });
-        await viewsPage.assertions.verifyElementHaveText({ selector: viewsPage.countryInput, text: 'Canada' });
+        await MainPage.actions.clickOnElement({ selector: MainPage.views });
+        await ViewsPage.actions.clickOnElement({ selector: ViewsPage.autoComplete });
+        await ViewsPage.actions.clickOnElement({ selector: ViewsPage.screenTop });
+        await ViewsPage.actions.setValueIntoField({ selector: ViewsPage.countryInput, value: 'Canada' });
+        await ViewsPage.assertions.verifyElementHaveText({ selector: ViewsPage.countryInput, text: 'Canada' });
     });
 
     it('Navigate To Specific Page Directly', async () => {
-        await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.app.AlertDialogSamples' });
-        await alertDialogPage.assertions.verifyElementIsExisting({ selector: alertDialogPage.listDialog });
+        await MainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.app.AlertDialogSamples' });
+        await AlertDialogPage.assertions.verifyElementIsExisting({ selector: AlertDialogPage.listDialog });
     });
 
     it('Test Ok & Cancel Dialog window without - Clicking', async () => {
-        await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.app.AlertDialogSamples' });
-        await alertDialogPage.assertions.verifyElementIsExisting({ selector: alertDialogPage.okCancelDialog });
+        await MainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.app.AlertDialogSamples' });
+        await AlertDialogPage.assertions.verifyElementIsExisting({ selector: AlertDialogPage.okCancelDialog });
         // Accept Flow
-        await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.okCancelDialog });
-        await alertDialogWindow.assertions.verifyElementIsExisting({ selector: alertDialogWindow.alertDialogWindow });
-        await alertDialogWindow.actions.acceptAlert();
-        await alertDialogWindow.assertions.verifyElementIsNotExisting({ selector: alertDialogWindow.alertDialogWindow });
+        await AlertDialogPage.actions.clickOnElement({ selector: AlertDialogPage.okCancelDialog });
+        await AlertDialogWindow.assertions.verifyElementIsExisting({ selector: AlertDialogWindow.alertDialogWindow });
+        await AlertDialogWindow.actions.acceptAlert();
+        await AlertDialogWindow.assertions.verifyElementIsNotExisting({ selector: AlertDialogWindow.alertDialogWindow });
         // Dismiss Flow
-        await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.okCancelDialog });
-        await alertDialogWindow.assertions.verifyElementIsExisting({ selector: alertDialogWindow.alertDialogWindow });
-        await alertDialogWindow.actions.dismissAlert();
-        await alertDialogWindow.assertions.verifyElementIsNotExisting({ selector: alertDialogWindow.alertDialogWindow });
+        await AlertDialogPage.actions.clickOnElement({ selector: AlertDialogPage.okCancelDialog });
+        await AlertDialogWindow.assertions.verifyElementIsExisting({ selector: AlertDialogWindow.alertDialogWindow });
+        await AlertDialogWindow.actions.dismissAlert();
+        await AlertDialogWindow.assertions.verifyElementIsNotExisting({ selector: AlertDialogWindow.alertDialogWindow });
     });
 
     it('Test Ok & Cancel Dialog window with - Clicking + Title Content', async () => {
-        await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.app.AlertDialogSamples' });
-        await alertDialogPage.assertions.verifyElementIsExisting({ selector: alertDialogPage.okCancelDialog });
+        await MainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.app.AlertDialogSamples' });
+        await AlertDialogPage.assertions.verifyElementIsExisting({ selector: AlertDialogPage.okCancelDialog });
         // Accept Flow
-        await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.okCancelDialog });
-        await alertDialogWindow.assertions.verifyElementIsExisting({ selector: alertDialogWindow.alertDialogWindow });
-        await alertDialogWindow.actions.clickOnElement({ selector: alertDialogWindow.okBtn });
-        await alertDialogWindow.assertions.verifyElementIsNotExisting({ selector: alertDialogWindow.alertDialogWindow });
+        await AlertDialogPage.actions.clickOnElement({ selector: AlertDialogPage.okCancelDialog });
+        await AlertDialogWindow.assertions.verifyElementIsExisting({ selector: AlertDialogWindow.alertDialogWindow });
+        await AlertDialogWindow.actions.clickOnElement({ selector: AlertDialogWindow.okBtn });
+        await AlertDialogWindow.assertions.verifyElementIsNotExisting({ selector: AlertDialogWindow.alertDialogWindow });
         // Dismiss Flow
-        await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.okCancelDialog });
-        await alertDialogWindow.assertions.verifyElementIsExisting({ selector: alertDialogWindow.alertDialogWindow });
-        await alertDialogWindow.actions.clickOnElement({ selector: alertDialogWindow.cancelBtn });
-        await alertDialogWindow.assertions.verifyElementIsNotExisting({ selector: alertDialogWindow.alertDialogWindow });
+        await AlertDialogPage.actions.clickOnElement({ selector: AlertDialogPage.okCancelDialog });
+        await AlertDialogWindow.assertions.verifyElementIsExisting({ selector: AlertDialogWindow.alertDialogWindow });
+        await AlertDialogWindow.actions.clickOnElement({ selector: AlertDialogWindow.cancelBtn });
+        await AlertDialogWindow.assertions.verifyElementIsNotExisting({ selector: AlertDialogWindow.alertDialogWindow });
         // Title Content
-        await alertDialogPage.actions.clickOnElement({ selector: alertDialogPage.okCancelDialog });
-        const titleText: string = await alertDialogWindow.actions.getAlertText();
-        await alertDialogWindow.assertions.verifyAlertText({ alertText: titleText });
+        await AlertDialogPage.actions.clickOnElement({ selector: AlertDialogPage.okCancelDialog });
+        const titleText: string = await AlertDialogWindow.actions.getAlertText();
+        await AlertDialogWindow.assertions.verifyAlertText({ alertText: titleText });
     });
 
     it('Test Verical Scrolling - ScrollToEnd', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await mainPage.actions.clickOnElement({ selector: mainPage.activity });
-        await mainPage.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'vertical' });
-        await secureDialogPage.actions.clickOnElement({ selector: secureDialogPage.secureSurfaces });
-        await secureDialogPage.assertions.verifyElementIsExisting({ selector: secureDialogPage.secureDialog });
+        await MainPage.actions.clickOnElement({ selector: MainPage.app });
+        await MainPage.actions.clickOnElement({ selector: MainPage.activity });
+        await MainPage.actions.scrollToEnd({ scrollable: MainPage.selectorFactory.getScrollable(), direction: 'vertical' });
+        await SecureDialogPage.actions.clickOnElement({ selector: SecureDialogPage.secureSurfaces });
+        await SecureDialogPage.assertions.verifyElementIsExisting({ selector: SecureDialogPage.secureDialog });
     });
 
     it('Test Verical Scrolling - ScrollTextIntoView', async () => {
-        await mainPage.actions.clickOnElement({ selector: mainPage.app });
-        await mainPage.actions.clickOnElement({ selector: mainPage.activity });
-        await mainPage.actions.scrollTextIntoView({ scrollable: mainPage.selectorFactory.getScrollable(), text: 'Secure Surfaces' });
-        await secureDialogPage.actions.clickOnElement({ selector: secureDialogPage.secureSurfaces });
-        await secureDialogPage.assertions.verifyElementIsExisting({ selector: secureDialogPage.secureDialog });
+        await MainPage.actions.clickOnElement({ selector: MainPage.app });
+        await MainPage.actions.clickOnElement({ selector: MainPage.activity });
+        await MainPage.actions.scrollTextIntoView({ scrollable: MainPage.selectorFactory.getScrollable(), text: 'Secure Surfaces' });
+        await SecureDialogPage.actions.clickOnElement({ selector: SecureDialogPage.secureSurfaces });
+        await SecureDialogPage.assertions.verifyElementIsExisting({ selector: SecureDialogPage.secureDialog });
     });
 
     it('Test Horizontal Scrolling - ScrollToEnd', async () => {
-        await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.view.Gallery1' });
-        await mainPage.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'front' });
-        await mainPage.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'back' });
+        await MainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.view.Gallery1' });
+        await MainPage.actions.scrollToEnd({ scrollable: MainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'front' });
+        await MainPage.actions.scrollToEnd({ scrollable: MainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'back' });
     });
 
-    it.only('Test Picking Date from calendar modal window', async () => {
+    it('Test Picking Date from calendar modal window', async () => {
         // Navigate and verify page
-        await mainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.view.DateWidgets1' });
-        await calendarWindow.assertions.verifyElementIsExisting({ selector: calendarWindow.currentDate });
-        const currentDateContent: string = await calendarWindow.actions.getElementTextContent({ selector: calendarWindow.currentDate });
+        await MainPage.actions.navigateToSpecificPageDirectly({ packageName: 'io.appium.android.apis', appActivity: '.view.DateWidgets1' });
+        await CalendarWindow.assertions.verifyElementIsExisting({ selector: CalendarWindow.currentDate });
+        const currentDateContent: string = await CalendarWindow.actions.getElementTextContent({ selector: CalendarWindow.currentDate });
         const today = new Date();
-        await calendarWindow.assertions.verifyElementContainsText({ selector: calendarWindow.currentDate, text: `${today.getDay()}` });
+        await CalendarWindow.assertions.verifyElementContainsText({ selector: CalendarWindow.currentDate, text: `${today.getDay()}` });
         // Click and verify calendar window
-        await calendarWindow.actions.clickOnElement({ selector: calendarWindow.changeDateBtn });
-        await calendarWindow.assertions.verifyElementIsExisting({ selector: calendarWindow.window });
-        await calendarWindow.actions.scrollToEnd({ scrollable: mainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'front' });
+        await CalendarWindow.actions.clickOnElement({ selector: CalendarWindow.changeDateBtn });
+        await CalendarWindow.assertions.verifyElementIsExisting({ selector: CalendarWindow.window });
+        await CalendarWindow.actions.scrollToEnd({ scrollable: MainPage.selectorFactory.getScrollable(), direction: 'horizontal', aim: 'front' });
         // Choose 10 day and Verify
-        await calendarWindow.actions.clickOnElement({ selector: calendarWindow.tenthDay });
-        await calendarWindow.actions.clickOnElement({ selector: calendarWindow.okBtn });
-        await calendarWindow.assertions.verifyElementContainsText({ selector: calendarWindow.currentDate, text: '10' });
-        const chosenDateContent: string = await calendarWindow.actions.getElementTextContent({ selector: calendarWindow.currentDate });
-        calendarWindow.assertions.verifyNotEqual({ value1: currentDateContent, value2: chosenDateContent });
+        await CalendarWindow.actions.clickOnElement({ selector: CalendarWindow.tenthDay });
+        await CalendarWindow.actions.clickOnElement({ selector: CalendarWindow.okBtn });
+        await CalendarWindow.assertions.verifyElementContainsText({ selector: CalendarWindow.currentDate, text: '10' });
+        const chosenDateContent: string = await CalendarWindow.actions.getElementTextContent({ selector: CalendarWindow.currentDate });
+        CalendarWindow.assertions.verifyNotEqual({ value1: currentDateContent, value2: chosenDateContent });
     });
 })

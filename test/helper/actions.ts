@@ -1,6 +1,6 @@
 import { BaseHelp } from "./baseHelp";
 
-export class Actions extends BaseHelp {
+class Actions extends BaseHelp {
     async navigateToSpecificPageDirectly(args: { packageName: string, appActivity: string }): Promise<void> {
         await driver.startActivity(args.packageName, `${args.packageName}${args.appActivity}`);
     }
@@ -74,3 +74,5 @@ export class Actions extends BaseHelp {
         return elementsTextContent;
     }
 }
+
+export default new Actions();

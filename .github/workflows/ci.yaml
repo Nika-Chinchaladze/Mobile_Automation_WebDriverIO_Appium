@@ -5,26 +5,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-        - name: ⬇️ Checkout Code
-          uses: actions/checkout@v4
+      - name: ⬇️ Checkout Code
+        uses: actions/checkout@v4
 
-        - name: 🐢 Setup Node
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20.10.0
+      - name: 🐢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.10.0
 
-        - name: 🏗️ Install Dependencies
-          run: npm install
+      - name: 🏗️ Install Dependencies
+        run: npm install
 
-        - name: 🧪 Test
-          env:
-            BS_USER: ${{ secrets.BS_USER }}
-            BS_KEY: ${{ secrets.BS_KEY }}
-          run: npm run wdio:browserstack
+      - name: 🧪 Test
+        env:
+          BS_USER: ${{ secrets.BS_USER }}
+          BS_KEY: ${{ secrets.BS_KEY }}
+        run: npm run wdio:browserstack
 
-        - name: 📦 Upload Logs
-          uses: actions/upload-artifact@v4
-          if: failure()
-          with:
-            name: logs
-            path: logs
+      - name: 📦 Upload Logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: logs
+          path: logs

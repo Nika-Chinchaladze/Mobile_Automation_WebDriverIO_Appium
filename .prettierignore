@@ -1,0 +1,8 @@
+node_modules/
+git
+env
+app
+logs
+local.log
+steps.txt
+wdio-appium.log
